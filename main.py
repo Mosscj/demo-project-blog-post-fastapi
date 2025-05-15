@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from mangum import Mangum
-from routers import users_controller, posts, comments_controller
+from routers import users_controller, posts_controller, comments_controller
 # from config.setting import settings
 import models, database
 models.Base.metadata.create_all(bind=database.engine)
@@ -44,7 +44,7 @@ def validation_exception_handler(request, err):
 
 
 app.include_router(users_controller.router)
-# app.include_router(posts.router, prefix="/posts", tags=['POSTS'])
+app.include_router(posts_controller.router)
 app.include_router(comments_controller.router)
 
 if __name__ == "__main__":
